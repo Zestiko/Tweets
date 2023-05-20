@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://Zestiko.github.io/Tweets",
+  "homepage": "https://zestiko.github.io/Tweets/",
   "scripts": {
     "start": "vite",
     "build": "vite build",
