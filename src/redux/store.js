@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { usersReducer } from './users/usersSlice';
-import { followersReducer } from './followers/followersSlice';
+import {  persitiFollowersReduser } from './followers/followersSlice';
 import {
   persistStore,
   FLUSH,
@@ -14,7 +14,7 @@ import {
 export const store = configureStore({
   reducer: {
     users: usersReducer,
-    followers: followersReducer,
+    followers: persitiFollowersReduser,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
