@@ -3,9 +3,9 @@ import { tweetsApi } from '../../http/http';
 
 export const getUsersThunk = createAsyncThunk(
   'users/get',
-  async (_, thunkAPI) => {
+  async (page, thunkAPI) => {
     try {
-      const { data } = await tweetsApi.get('/users');
+      const { data } = await tweetsApi.get(`/users?page=${page||1}&limit=3`);
 
       return data;
     } catch (error) {

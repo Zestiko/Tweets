@@ -1,20 +1,27 @@
 import { useDispatch } from 'react-redux';
-import { getUsersThunk } from '../redux/users/userOperations'
+import { getUsersThunk } from '../redux/users/userOperations';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { selectorGetUsers, selectorUsersStatus } from '../redux/users/usersSlice';
-import TweetCard from '../components/TweetCard'
-import scss from './Tweets.module.scss'
+import {
+  selectorGetUsers,
+  selectorUsersStatus,
+} from '../redux/users/usersSlice';
+import TweetCard from '../components/TweetCard';
+import scss from './Tweets.module.scss';
 
 const Tweets = () => {
   const users = useSelector(selectorGetUsers);
-
-  const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
   
+  
+  const dispatch = useDispatch();
+  const handelClick = () => {
+    setPage(page=> page+1)
+  }
 
   useEffect(() => {
-    dispatch(getUsersThunk());
-  }, [dispatch]);
+    dispatch(getUsersThunk(page));
+  }, [dispatch, page]);
 
   return (
     <div className={scss.container}>
@@ -23,6 +30,11 @@ const Tweets = () => {
           return <TweetCard key={i} user={user} />;
         })}
       </ul>
+      {users.length >= 12 ? null : (
+        <button className={scss.button} onClick={handelClick}>
+          LoadMore
+        </button>
+      )}
     </div>
   );
 };

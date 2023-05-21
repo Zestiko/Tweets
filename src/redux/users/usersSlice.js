@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import STATUS from '../../constants';
 import { getUsersThunk, updateFollowershUsersThunk } from './userOperations';
-import { userInitialState } from "./usersInitState";
+import { userInitialState } from './usersInitState';
 
 const handlePending = state => {
   state.status = STATUS.loading;
@@ -18,7 +18,7 @@ const usersSlice = createSlice({
     builder
       .addCase(getUsersThunk.fulfilled, (state, { payload }) => {
         state.status = STATUS.success;
-        state.users = payload;
+        state.users.push(...payload);
       })
       .addCase(updateFollowershUsersThunk.fulfilled, (state, { payload }) => {
         state.status = STATUS.success;
@@ -29,9 +29,9 @@ const usersSlice = createSlice({
       .addCase(getUsersThunk.rejected, handleRejected)
       .addCase(updateFollowershUsersThunk.pending, handlePending)
       .addCase(updateFollowershUsersThunk.rejected, handleRejected);
-  }
-})
+  },
+});
 
-export const usersReducer = usersSlice.reducer
+export const usersReducer = usersSlice.reducer;
 export const selectorUsersStatus = state => state.users.status;
 export const selectorGetUsers = state => state.users.users;
