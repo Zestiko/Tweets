@@ -13,3 +13,19 @@ export const getUsersThunk = createAsyncThunk(
     }
   }
 );
+
+export const updateFollowershUsersThunk = createAsyncThunk(
+  'users/put',
+  async ({ id, followers }, thunkAPI) => {
+    try {
+      const { data } = await tweetsApi.put(`/users/${id}`, {
+        followers: followers,
+      });
+
+      return data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue('Sorry, something went wrong');
+    }
+  }
+);

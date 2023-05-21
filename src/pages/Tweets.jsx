@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { selectorGetUsers, selectorUsersStatus } from '../redux/users/usersSlice';
 import TweetCard from '../components/TweetCard'
+import scss from './Tweets.module.scss'
 
 const Tweets = () => {
   const users = useSelector(selectorGetUsers);
@@ -16,11 +17,13 @@ const Tweets = () => {
   }, [dispatch]);
 
   return (
-    <>
-      {users.map((user,i) => {
-       return <TweetCard key={i} user={user} />;
-      })}
-    </>
+    <div className={scss.container}>
+      <ul className={scss.cards}>
+        {users.map((user, i) => {
+          return <TweetCard key={i} user={user} />;
+        })}
+      </ul>
+    </div>
   );
 };
 

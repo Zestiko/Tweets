@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import STATUS from '../../constants';
-import { getUsersThunk } from './userOperations'
+import { getUsersThunk, updateFollowershUsersThunk } from './userOperations';
 import { userInitialState } from "./usersInitState";
 
 const handlePending = state => {
@@ -20,8 +20,15 @@ const usersSlice = createSlice({
         state.status = STATUS.success;
         state.users = payload;
       })
+      .addCase(updateFollowershUsersThunk.fulfilled, (state, { payload }) => {
+        state.status = STATUS.success;
+        const idx = state.users.findIndex(user => user.id === payload.id);
+        state.users[idx] = payload;
+      })
       .addCase(getUsersThunk.pending, handlePending)
-      .addCase(getUsersThunk.rejected, handleRejected);
+      .addCase(getUsersThunk.rejected, handleRejected)
+      .addCase(updateFollowershUsersThunk.pending, handlePending)
+      .addCase(updateFollowershUsersThunk.rejected, handleRejected);
   }
 })
 
